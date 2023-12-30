@@ -1,7 +1,8 @@
-<html>
+<html lang="en">
 <head>
-    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
-    <title>Player Roster - Tabletop Weekly 12-29 - 12/29/2023 18:09:44</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Match Slips - Tabletop Weekly 12-29 - 12/29/2023 18:12:13</title>
+
     <!--@formatter:off-->
     <style>
         body.report {
@@ -42,453 +43,1618 @@ th.footer {
 
     </style>
     <!--@formatter:on-->
-    <style type='text/css'>
-        .players_table {
-            padding: 5px;
+
+    <!--@formatter:off-->
+    <style>
+        .match_slip {
+            width: 700px;
+            padding: 0;
+            page-break-before: avoid;
+            page-break-inside: avoid;
+            page-break-after: avoid;
+            orphans: 0;
+            widows: 0;
         }
+
+        .table-font-size {
+            font-size: [[TABLE_FONT_SIZE]]pt;
+        }
+
+        /* the barcode must have a quiet zone */
+        .barcode {
+            padding: 15px 5px;
+
+            border: none;
+        }
+
     </style>
+    <!--@formatter:on-->
+    <style media="all">
+        body {
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .player-1-barcode img {
+            transform: rotate(90deg) translate(-86px, 15px);
+            position: absolute;
+            width: 25px;
+            height: 200px;
+        }
+
+        .player-2-barcode img {
+            transform: rotate(90deg) translate(-86px, 15px);
+            position: absolute;
+            width: 25px;
+            height: 200px;
+        }
+
+        .tie-barcode img {
+            transform: rotate(90deg) translate(-86px, 15px);
+            position: absolute;
+            width: 25px;
+            height: 200px;
+        }
+
+        table {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            padding: 0;
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+
+        td {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            border: 1px inset black;
+            background: white;
+            color: black;
+        }
+
+        @page {
+            size: 8.5in 11in;
+            margin: 0.22in 0.0in 0.0in 0.0in;
+        }
+
+        /* 
+            1 inch = 96 CSS-defined px (not pixels) so a 700px form 
+            is actually 7.29167 inches wide.  I am using 700px for
+            easier math and finer adjustments. -- Jeff
+        */
+
+        .heading {
+            font-variant: small-caps;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .small {
+            font-size: 10px;
+        }
+        
+        .pagebreak {
+            height: 0px;
+            page-break-before: always;
+        }
+
+        td.matchrecord {
+            height: 50px;
+        }
+
+        tr.nobottomborder td {
+            border-bottom: none;
+        }
+
+        tr.noleftborder td {
+            border-left: none;
+        }
+
+        tr.norightborder td {
+            border-right: none;
+        }
+
+        .noborders {
+            border: none;
+        }
+
+        tr.notopborder td {
+            border-top: none;
+        }
+
+        .debug {
+            border-color: red;
+        }
+
+        .match_slip_format {
+            height: 216px;
+            margin: 0 auto;
+            border-collapse: separate;
+        }
+
+        .player-1-win {
+            width: 40px;
+            border-width: 0;
+            border-style: solid none;
+            border-color: rgb(0, 0, 0);
+            position: relative;
+        }
+
+        .player-1-win-details {
+            position: absolute;
+            margin-top: 2px;
+            width: 208px;
+            height: 100px;
+            text-align: left;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            transform-origin: left top;
+            transform: rotate(90deg) translate(0px, -40px);
+        }
+
+        .player-1-info {
+            width: 180px;
+            border-width: 2px 1px 2px 2px;
+            border-style: none none none solid;
+            border-color: rgb(0, 0, 0);
+            position: relative;
+        }
+
+        .player-1-info-details {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 212px;
+            height: 180px;
+            text-align: center;
+            padding: 0;
+            overflow: hidden;
+            transform-origin: right top;
+            transform: rotate(-90deg) translate(0px, -212px);
+        }
+
+        .tied-info {
+            width: 260px;
+            vertical-align: middle;
+            border: 1px dashed rgb(0, 0, 0);
+            position: relative;
+        }
+
+        .tied-info-details {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            padding: 0;
+            overflow: auto;
+            width: 100%;
+            vertical-align: bottom;
+        }
+
+        .player-2-info {
+            width: 180px;
+            border-width: 2px 2px 2px 1px;
+            border-style: none solid none none;
+            border-color: rgb(0, 0, 0);
+            position: relative;
+        }
+
+        .player-2-info-details {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 212px;
+            height: 180px;
+            text-align: center;
+            padding: 0;
+            overflow: hidden;
+            transform-origin: left top;
+            transform: rotate(90deg) translate(0px, -177px);
+        }
+
+        .player-2-win {
+            width: 40px;
+            border-width: 0;
+            border-style: solid none;
+            border-color: rgb(0, 0, 0);
+            position: relative;
+        }
+
+        .player-2-win-details {
+            position: absolute;
+            margin-top: 2px;
+            width: 208px;
+            height: 100px;
+            text-align: left;
+            overflow: hidden;
+            top: 0;
+            right: 0;
+            transform-origin: right top;
+            transform: rotate(-90deg) translate(0px, -40px);
+        }
+
+        .below-barcode-padding {
+            padding-top: 25px;
+        }
+
+        .tie-instructions {
+            margin-top: 4px;
+        }
+        
+        div.pagebreak {
+            height: 0px;
+        }
+        
+        hr {
+            margin: 24px;
+        }
+
+    </style>
+    <script>
+        let display = function displayAlert() {
+            alert("For match slips to print correctly, make sure your page layout is portrait and your headers and footers are turned OFF.\n\n\n\nView your first report in Print Preview to verify margins and ensure slips are fitting properly on the page.");
+        }
+    </script>
 </head>
-<body class='report'>
+<body onload="display()" class="report">
 <!-- [[BEGIN_REPORT]] -->
 
-<h3>Player Roster</h3>
-Tournament: <b>Tabletop Weekly 12-29</b>
-<br/>
-<h3>Masters Division -- 46 Players Entered</h3>
-<table class='players_table report border'>
-    <tr>
-        <th scope='col'><strong>Table&nbsp;#</strong></th>
-        <th scope='col'><strong>Name</strong></th>
-        <th scope='col'><strong>Age&nbsp;Division</strong></th>
-        
-        <th scope='col'><strong>Late?</strong></th>
-        <th scope='col'><strong>Earned&nbsp;Byes</strong></th>
-    </tr>
-    
-    <tr>
-        <td align='left'>1</td>
-        <td align='left'>Abaan Ahmed</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>1</td>
-        <td align='left'>Addie Ward</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>2</td>
-        <td align='left'>Alex Koch</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>2</td>
-        <td align='left'>Andy Gantner</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>3</td>
-        <td align='left'>Annabelle (Fake) O</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>3</td>
-        <td align='left'>Arron Meriales</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>4</td>
-        <td align='left'>Bryant Simon</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>4</td>
-        <td align='left'>Caleb Olson</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>5</td>
-        <td align='left'>Cameron Kawasaki</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>5</td>
-        <td align='left'>Cameron Shenoy</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>6</td>
-        <td align='left'>Christian Calma</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>6</td>
-        <td align='left'>Christopher Vo</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>7</td>
-        <td align='left'>Cobi Kawasaki</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>7</td>
-        <td align='left'>Corey Moneymaker</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>8</td>
-        <td align='left'>Daniel Lucio</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>8</td>
-        <td align='left'>Drue Townsend</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>9</td>
-        <td align='left'>Edison (Fake) Chein</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>9</td>
-        <td align='left'>Elliot Gantner</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>10</td>
-        <td align='left'>Emily Stensrud</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>10</td>
-        <td align='left'>Gautam (Fake) Trehan</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>11</td>
-        <td align='left'>Hannah Mansoori</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>11</td>
-        <td align='left'>Hunter Stowell</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>12</td>
-        <td align='left'>Hunter Woolidge</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>12</td>
-        <td align='left'>Isa (fake) E</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>13</td>
-        <td align='left'>Jake Van Wingen</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>13</td>
-        <td align='left'>Jake (fake) K</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>14</td>
-        <td align='left'>James Phan</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>14</td>
-        <td align='left'>James (Fake) Van Wingen</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>15</td>
-        <td align='left'>Joe Camacho</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>15</td>
-        <td align='left'>Kaedan (Fake) Tran</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>16</td>
-        <td align='left'>Kenji (fake) O</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>16</td>
-        <td align='left'>Kenton (Fake) K</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>17</td>
-        <td align='left'>Le Bui</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>17</td>
-        <td align='left'>Michael Johnson</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>18</td>
-        <td align='left'>Murasaki (fake) H</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>18</td>
-        <td align='left'>Nick Sheffer</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>19</td>
-        <td align='left'>Nick Wedler</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>19</td>
-        <td align='left'>Noah Johnson</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>20</td>
-        <td align='left'>Polaris (Fake) A</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>20</td>
-        <td align='left'>Rian Alam</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>21</td>
-        <td align='left'>Ryan Daniels</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>21</td>
-        <td align='left'>Sakura (Fake) H</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>22</td>
-        <td align='left'>Sky DelaCruz</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>22</td>
-        <td align='left'>Stephen Cham</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>23</td>
-        <td align='left'>William Beers</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-    <tr>
-        <td align='left'>23</td>
-        <td align='left'>Zeeshan Kunnummal</td>
-        <td align='right'>MA</td>
-        
-        <td align='right'></td>
-        <td align='right'></td>
-    </tr>
-    
-</table>
-<p>&nbsp;</p>
-<table class='footer' width='100%'>
-    <tr>
-        <td class='footer' width='33%' align='left'><b>Tabletop Weekly 12-29</b></td>
-        <td class='footer' width='33%' align='center'><b>Royce Mapes</b></td>
-        <td class='footer' width='33%' align='right'><b>12/29/2023 18:09:44</b></td>
-    </tr>
-</table>
 
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Hunter Woolidge<br><span
+                    style="font-size: 18px">2695305  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 210113</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/210113.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #1</span><br><b
+                        style="font-size: 20px;">Hunter Woolidge</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 210131</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/210131.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 210122</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/210122.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #1</span><br><b
+                        style="font-size: 20px;">Polaris (Fake) A</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Polaris (Fake) A<br><span
+                    style="font-size: 18px">1111111115  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Elliot Gantner<br><span
+                    style="font-size: 18px">849919  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 210711</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/210711.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #7</span><br><b
+                        style="font-size: 20px;">Elliot Gantner</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 210739</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/210739.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 210720</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/210720.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #7</span><br><b
+                        style="font-size: 20px;">Christian Calma</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Christian Calma<br><span
+                    style="font-size: 18px">4653211  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>James Phan<br><span
+                    style="font-size: 18px">4660512  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 211318</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/211318.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #13</span><br><b
+                        style="font-size: 20px;">James Phan</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 211336</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/211336.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 211327</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/211327.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #13</span><br><b
+                        style="font-size: 20px;">Caleb Olson</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Caleb Olson<br><span
+                    style="font-size: 18px">102037  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Stephen Cham<br><span
+                    style="font-size: 18px">3184497  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 211916</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/211916.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #19</span><br><b
+                        style="font-size: 20px;">Stephen Cham</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 211934</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/211934.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 211925</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/211925.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #19</span><br><b
+                        style="font-size: 20px;">Hannah Mansoori</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Hannah Mansoori<br><span
+                    style="font-size: 18px">4843631  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="pagebreak">&nbsp;</div>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Gautam (Fake) Trehan<br><span
+                    style="font-size: 18px">1111111120  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 210211</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/210211.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #2</span><br><b
+                        style="font-size: 20px;">Gautam (Fake) Trehan</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 210239</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/210239.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 210220</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/210220.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #2</span><br><b
+                        style="font-size: 20px;">Kenji (fake) O</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Kenji (fake) O<br><span
+                    style="font-size: 18px">1111111189  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Murasaki (fake) H<br><span
+                    style="font-size: 18px">1111111164  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 210819</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/210819.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #8</span><br><b
+                        style="font-size: 20px;">Murasaki (fake) H</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 210837</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/210837.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 210828</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/210828.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #8</span><br><b
+                        style="font-size: 20px;">Hunter Stowell</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Hunter Stowell<br><span
+                    style="font-size: 18px">4158955  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Rian Alam<br><span
+                    style="font-size: 18px">4551753  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 211416</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/211416.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #14</span><br><b
+                        style="font-size: 20px;">Rian Alam</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 211434</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/211434.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 211425</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/211425.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #14</span><br><b
+                        style="font-size: 20px;">Isa (fake) E</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Isa (fake) E<br><span
+                    style="font-size: 18px">1111111113  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Joe Camacho<br><span
+                    style="font-size: 18px">4632435  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 212013</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/212013.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #20</span><br><b
+                        style="font-size: 20px;">Joe Camacho</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 212031</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/212031.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 212022</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/212022.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #20</span><br><b
+                        style="font-size: 20px;">Bryant Simon</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Bryant Simon<br><span
+                    style="font-size: 18px">4619591  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="pagebreak">&nbsp;</div>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Andy Gantner<br><span
+                    style="font-size: 18px">965649  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 210319</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/210319.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #3</span><br><b
+                        style="font-size: 20px;">Andy Gantner</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 210337</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/210337.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 210328</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/210328.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #3</span><br><b
+                        style="font-size: 20px;">Cameron Kawasaki</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Cameron Kawasaki<br><span
+                    style="font-size: 18px">2995432  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Cobi Kawasaki<br><span
+                    style="font-size: 18px">2840155  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 210917</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/210917.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #9</span><br><b
+                        style="font-size: 20px;">Cobi Kawasaki</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 210935</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/210935.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 210926</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/210926.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #9</span><br><b
+                        style="font-size: 20px;">Sky DelaCruz</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Sky DelaCruz<br><span
+                    style="font-size: 18px">1619431  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Nick Sheffer<br><span
+                    style="font-size: 18px">951531  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 211514</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/211514.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #15</span><br><b
+                        style="font-size: 20px;">Nick Sheffer</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 211532</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/211532.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 211523</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/211523.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #15</span><br><b
+                        style="font-size: 20px;">Daniel Lucio</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Daniel Lucio<br><span
+                    style="font-size: 18px">1075086  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Christopher Vo<br><span
+                    style="font-size: 18px">4597728  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 212111</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/212111.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #21</span><br><b
+                        style="font-size: 20px;">Christopher Vo</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 212139</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/212139.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 212120</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/212120.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #21</span><br><b
+                        style="font-size: 20px;">Michael Johnson</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Michael Johnson<br><span
+                    style="font-size: 18px">1340106  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="pagebreak">&nbsp;</div>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Annabelle (Fake) O<br><span
+                    style="font-size: 18px">1111111142  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 210417</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/210417.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #4</span><br><b
+                        style="font-size: 20px;">Annabelle (Fake) O</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 210435</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/210435.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 210426</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/210426.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #4</span><br><b
+                        style="font-size: 20px;">Corey Moneymaker</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Corey Moneymaker<br><span
+                    style="font-size: 18px">192512  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Zeeshan Kunnummal<br><span
+                    style="font-size: 18px">4568867  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 211014</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/211014.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #10</span><br><b
+                        style="font-size: 20px;">Zeeshan Kunnummal</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 211032</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/211032.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 211023</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/211023.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #10</span><br><b
+                        style="font-size: 20px;">Nick Wedler</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Nick Wedler<br><span
+                    style="font-size: 18px">4167819  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Noah Johnson<br><span
+                    style="font-size: 18px">4260014  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 211612</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/211612.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #16</span><br><b
+                        style="font-size: 20px;">Noah Johnson</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 211630</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/211630.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 211621</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/211621.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #16</span><br><b
+                        style="font-size: 20px;">Arron Meriales</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Arron Meriales<br><span
+                    style="font-size: 18px">4643242  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Cameron Shenoy<br><span
+                    style="font-size: 18px">2144082  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 212219</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/212219.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #22</span><br><b
+                        style="font-size: 20px;">Cameron Shenoy</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 212237</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/212237.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 212228</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/212228.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #22</span><br><b
+                        style="font-size: 20px;">Edison (Fake) Chein</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Edison (Fake) Chein<br><span
+                    style="font-size: 18px">1111111119  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="pagebreak">&nbsp;</div>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Kaedan (Fake) Tran<br><span
+                    style="font-size: 18px">1111111114  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 210515</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/210515.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #5</span><br><b
+                        style="font-size: 20px;">Kaedan (Fake) Tran</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 210533</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/210533.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 210524</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/210524.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #5</span><br><b
+                        style="font-size: 20px;">William Beers</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>William Beers<br><span
+                    style="font-size: 18px">1249017  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Addie Ward<br><span
+                    style="font-size: 18px">4013537  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 211112</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/211112.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #11</span><br><b
+                        style="font-size: 20px;">Addie Ward</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 211130</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/211130.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 211121</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/211121.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #11</span><br><b
+                        style="font-size: 20px;">Alex Koch</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Alex Koch<br><span
+                    style="font-size: 18px">952885  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Ryan Daniels<br><span
+                    style="font-size: 18px">4270615  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 211710</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/211710.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #17</span><br><b
+                        style="font-size: 20px;">Ryan Daniels</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 211738</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/211738.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 211729</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/211729.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #17</span><br><b
+                        style="font-size: 20px;">Kenton (Fake) K</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Kenton (Fake) K<br><span
+                    style="font-size: 18px">1111111175  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Le Bui<br><span
+                    style="font-size: 18px">838416  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 212317</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/212317.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #23</span><br><b
+                        style="font-size: 20px;">Le Bui</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 212335</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/212335.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 212326</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/212326.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #23</span><br><b
+                        style="font-size: 20px;">Abaan Ahmed</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Abaan Ahmed<br><span
+                    style="font-size: 18px">729459  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="pagebreak">&nbsp;</div>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Jake Van Wingen<br><span
+                    style="font-size: 18px">4355650  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 210613</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/210613.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #6</span><br><b
+                        style="font-size: 20px;">Jake Van Wingen</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 210631</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/210631.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 210622</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/210622.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #6</span><br><b
+                        style="font-size: 20px;">Sakura (Fake) H</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Sakura (Fake) H<br><span
+                    style="font-size: 18px">1111111176  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Emily Stensrud<br><span
+                    style="font-size: 18px">780128  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 211210</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/211210.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #12</span><br><b
+                        style="font-size: 20px;">Emily Stensrud</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 211238</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/211238.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 211229</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/211229.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #12</span><br><b
+                        style="font-size: 20px;">James (Fake) Van Win</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>James (Fake) Van Win<br><span
+                    style="font-size: 18px">1111111116  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Drue Townsend<br><span
+                    style="font-size: 18px">2941430  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 211818</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/211818.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #18</span><br><b
+                        style="font-size: 20px;">Drue Townsend</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 211836</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/211836.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 12-29<br>
+                        Round 
+                        1 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 211827</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/211827.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #18</span><br><b
+                        style="font-size: 20px;">Jake (fake) K</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/0/0 (0)<br><u>Initial below:</u></span>Jake (fake) K<br><span
+                    style="font-size: 18px">1111111137  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
 
 <!-- [[END_REPORT]] -->
 </body>
