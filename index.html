@@ -1,7 +1,8 @@
-<html>
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Pairings - Tabletop Weekly 6-26 - 06/26/2024 20:16:24</title>
+    <title>Match Slips - Tabletop Weekly 6-26 - 06/26/2024 20:56:24</title>
+
     <!--@formatter:off-->
     <style>
         body.report {
@@ -42,249 +43,969 @@ th.footer {
 
     </style>
     <!--@formatter:on-->
-    <style type="text/css">
-        td.left, th.left {
-            border: 0px none black;
-            border-left: thin solid black;
-            border-bottom: thin solid black;
-            border-top: thin solid black;
+
+    <!--@formatter:off-->
+    <style>
+        .match_slip {
+            width: 700px;
+            padding: 0;
+            page-break-before: avoid;
+            page-break-inside: avoid;
+            page-break-after: avoid;
+            orphans: 0;
+            widows: 0;
         }
 
-        td.center, th.center {
-            border: 0px none black;
-            border-bottom: thin solid black;
-            border-top: thin solid black;
+        .table-font-size {
+            font-size: [[TABLE_FONT_SIZE]]pt;
         }
 
-        td.right, th.right {
-            border: 0px none black;
-            border-right: thin solid black;
-            border-bottom: thin solid black;
-            border-top: thin solid black;
+        /* the barcode must have a quiet zone */
+        .barcode {
+            padding: 15px 5px;
+
+            border: none;
         }
 
-        td.full, th.full {
-            border: thin solid black;
-        }
     </style>
+    <!--@formatter:on-->
+    <style media="all">
+        body {
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .player-1-barcode img {
+            transform: rotate(90deg) translate(-86px, 15px);
+            position: absolute;
+            width: 25px;
+            height: 200px;
+        }
+
+        .player-2-barcode img {
+            transform: rotate(90deg) translate(-86px, 15px);
+            position: absolute;
+            width: 25px;
+            height: 200px;
+        }
+
+        .tie-barcode img {
+            transform: rotate(90deg) translate(-86px, 15px);
+            position: absolute;
+            width: 25px;
+            height: 200px;
+        }
+
+        table {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            padding: 0;
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+
+        td {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            border: 1px inset black;
+            background: white;
+            color: black;
+        }
+
+        @page {
+            size: 8.5in 11in;
+            margin: 0.22in 0.0in 0.0in 0.0in;
+        }
+
+        /* 
+            1 inch = 96 CSS-defined px (not pixels) so a 700px form 
+            is actually 7.29167 inches wide.  I am using 700px for
+            easier math and finer adjustments. -- Jeff
+        */
+
+        .heading {
+            font-variant: small-caps;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .small {
+            font-size: 10px;
+        }
+        
+        .pagebreak {
+            height: 0px;
+            page-break-before: always;
+        }
+
+        td.matchrecord {
+            height: 50px;
+        }
+
+        tr.nobottomborder td {
+            border-bottom: none;
+        }
+
+        tr.noleftborder td {
+            border-left: none;
+        }
+
+        tr.norightborder td {
+            border-right: none;
+        }
+
+        .noborders {
+            border: none;
+        }
+
+        tr.notopborder td {
+            border-top: none;
+        }
+
+        .debug {
+            border-color: red;
+        }
+
+        .match_slip_format {
+            height: 216px;
+            margin: 0 auto;
+            border-collapse: separate;
+        }
+
+        .player-1-win {
+            width: 40px;
+            border-width: 0;
+            border-style: solid none;
+            border-color: rgb(0, 0, 0);
+            position: relative;
+        }
+
+        .player-1-win-details {
+            position: absolute;
+            margin-top: 2px;
+            width: 208px;
+            height: 100px;
+            text-align: left;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            transform-origin: left top;
+            transform: rotate(90deg) translate(0px, -40px);
+        }
+
+        .player-1-info {
+            width: 180px;
+            border-width: 2px 1px 2px 2px;
+            border-style: none none none solid;
+            border-color: rgb(0, 0, 0);
+            position: relative;
+        }
+
+        .player-1-info-details {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 212px;
+            height: 180px;
+            text-align: center;
+            padding: 0;
+            overflow: hidden;
+            transform-origin: right top;
+            transform: rotate(-90deg) translate(0px, -212px);
+        }
+
+        .tied-info {
+            width: 260px;
+            vertical-align: middle;
+            border: 1px dashed rgb(0, 0, 0);
+            position: relative;
+        }
+
+        .tied-info-details {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            padding: 0;
+            overflow: auto;
+            width: 100%;
+            vertical-align: bottom;
+        }
+
+        .player-2-info {
+            width: 180px;
+            border-width: 2px 2px 2px 1px;
+            border-style: none solid none none;
+            border-color: rgb(0, 0, 0);
+            position: relative;
+        }
+
+        .player-2-info-details {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 212px;
+            height: 180px;
+            text-align: center;
+            padding: 0;
+            overflow: hidden;
+            transform-origin: left top;
+            transform: rotate(90deg) translate(0px, -177px);
+        }
+
+        .player-2-win {
+            width: 40px;
+            border-width: 0;
+            border-style: solid none;
+            border-color: rgb(0, 0, 0);
+            position: relative;
+        }
+
+        .player-2-win-details {
+            position: absolute;
+            margin-top: 2px;
+            width: 208px;
+            height: 100px;
+            text-align: left;
+            overflow: hidden;
+            top: 0;
+            right: 0;
+            transform-origin: right top;
+            transform: rotate(-90deg) translate(0px, -40px);
+        }
+
+        .below-barcode-padding {
+            padding-top: 25px;
+        }
+
+        .tie-instructions {
+            margin-top: 4px;
+        }
+        
+        div.pagebreak {
+            height: 0px;
+        }
+        
+        hr {
+            margin: 24px;
+        }
+
+    </style>
+    <script>
+        let display = function displayAlert() {
+            alert("For match slips to print correctly, make sure your page layout is portrait and your headers and footers are turned OFF.\n\n\n\nView your first report in Print Preview to verify margins and ensure slips are fitting properly on the page.");
+        }
+    </script>
 </head>
-<body class="report">
+<body onload="display()" class="report">
 <!-- [[BEGIN_REPORT]] -->
 
-<p>
-<h3>Pairings - Round 4</h3>
-Tournament: <b>Tabletop Weekly 6-26</b>
-</p>
-<BR>
-<H3>Masters Division</H3>
-<table class="report">
-    <tr>
-        <th scope="col" class="full"><strong>Table</strong></th>
-        <th scope="col" class="left"><strong>Name</strong></th>
-        <th scope="col" class="center"></th>
-        <th scope="col" class="right"><strong>Opponent</strong></th>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">11</td>
-        <td align="left" class="left">Bobby Ou&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Zachary Goff&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">8</td>
-        <td align="left" class="left">Cameron Shenoy&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Owen Xia&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">9</td>
-        <td align="left" class="left">Christy Cusick&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Patrick Eaton&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">1</td>
-        <td align="left" class="left">Cobi Kawasaki&nbsp;(3/0/0 (9))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Jordan Dumlao&nbsp;(3/0/0 (9))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">10</td>
-        <td align="left" class="left">Cristiano Timeskip Castaneda&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Harry Silverman&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">3</td>
-        <td align="left" class="left">Daniel Lucio&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Kyle Palsson&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">2</td>
-        <td align="left" class="left">Derek Hu&nbsp;(3/0/0 (9))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Julien Timeskip B&nbsp;(3/0/0 (9))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">10</td>
-        <td align="left" class="left">Harry Silverman&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Cristiano Timeskip Castaneda&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">7</td>
-        <td align="left" class="left">Isa (fake) E&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Travis Kim&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">4</td>
-        <td align="left" class="left">Jake Timeskip K&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Paul Echevarria&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">6</td>
-        <td align="left" class="left">Jesse Hardy&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Richard Timeskip A&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">1</td>
-        <td align="left" class="left">Jordan Dumlao&nbsp;(3/0/0 (9))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Cobi Kawasaki&nbsp;(3/0/0 (9))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">2</td>
-        <td align="left" class="left">Julien Timeskip B&nbsp;(3/0/0 (9))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Derek Hu&nbsp;(3/0/0 (9))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">13</td>
-        <td align="left" class="left">Kevin Macaraeg&nbsp;(0/3/0 (0))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Leo (Timeskip) I-B&nbsp;(0/3/0 (0))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">Bye</td>
-        <td align="left" class="left">Kori Haarz&nbsp;(1/3/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center"></td>
-        <td align="left" class="right"></td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">3</td>
-        <td align="left" class="left">Kyle Palsson&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Daniel Lucio&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">5</td>
-        <td align="left" class="left">Lauren Perla&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Vince Banda&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">12</td>
-        <td align="left" class="left">Leo (Fake) G&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Marco Cervantes&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">13</td>
-        <td align="left" class="left">Leo (Timeskip) I-B&nbsp;(0/3/0 (0))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Kevin Macaraeg&nbsp;(0/3/0 (0))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">12</td>
-        <td align="left" class="left">Marco Cervantes&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Leo (Fake) G&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">8</td>
-        <td align="left" class="left">Owen Xia&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Cameron Shenoy&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">9</td>
-        <td align="left" class="left">Patrick Eaton&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Christy Cusick&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">4</td>
-        <td align="left" class="left">Paul Echevarria&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Jake Timeskip K&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">6</td>
-        <td align="left" class="left">Richard Timeskip A&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Jesse Hardy&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">7</td>
-        <td align="left" class="left">Travis Kim&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Isa (fake) E&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">5</td>
-        <td align="left" class="left">Vince Banda&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Lauren Perla&nbsp;(2/1/0 (6))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-    <tr>
-        <td align="left" class="full">11</td>
-        <td align="left" class="left">Zachary Goff&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td align="center" class="center">vs.&nbsp;&nbsp;</td>
-        <td align="left" class="right">Bobby Ou&nbsp;(1/2/0 (3))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    
-</table>
-<p>&nbsp;</p>
-<P>* This player has received one or more losses for tardiness and will always be ordered, in Swiss rounds, after players with the same match record who were on time.</P>
-<table class="footer" width="100%">
-    <tr>
-        <td class="footer" width="33%" align="left"><b>Tabletop Weekly 6-26</b></td>
-        <td class="footer" width="33%" align="center"><b>Royce Mapes</b></td>
-        <td class="footer" width="33%" align="right"><b>06/26/2024 20:16:24</b></td>
-    </tr>
-</table>
 
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">3/0/1 (10)<br><u>Initial below:</u></span>Derek Hu<br><span
+                    style="font-size: 18px">3595073  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 250115</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/250115.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #1</span><br><b
+                        style="font-size: 20px;">Derek Hu</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 250133</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/250133.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 6-26<br>
+                        Round 
+                        5 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 250124</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/250124.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #1</span><br><b
+                        style="font-size: 20px;">Cobi Kawasaki</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">3/0/1 (10)<br><u>Initial below:</u></span>Cobi Kawasaki<br><span
+                    style="font-size: 18px">2840155  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">3/1/0 (9)<br><u>Initial below:</u></span>Richard Timeskip A<br><span
+                    style="font-size: 18px">1111111140  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 250419</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/250419.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #4</span><br><b
+                        style="font-size: 20px;">Richard Timeskip A</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 250437</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/250437.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 6-26<br>
+                        Round 
+                        5 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 250428</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/250428.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #4</span><br><b
+                        style="font-size: 20px;">Lauren Perla</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">3/1/0 (9)<br><u>Initial below:</u></span>Lauren Perla<br><span
+                    style="font-size: 18px">4843622  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">2/2/0 (6)<br><u>Initial below:</u></span>Kyle Palsson<br><span
+                    style="font-size: 18px">736071  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 250713</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/250713.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #7</span><br><b
+                        style="font-size: 20px;">Kyle Palsson</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 250731</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/250731.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 6-26<br>
+                        Round 
+                        5 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 250722</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/250722.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #7</span><br><b
+                        style="font-size: 20px;">Travis Kim</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">2/2/0 (6)<br><u>Initial below:</u></span>Travis Kim<br><span
+                    style="font-size: 18px">4940897  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">1/3/0 (3)<br><u>Initial below:</u></span>Kori Haarz<br><span
+                    style="font-size: 18px">4770028  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 251016</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/251016.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #10</span><br><b
+                        style="font-size: 20px;">Kori Haarz</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 251034</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/251034.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 6-26<br>
+                        Round 
+                        5 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 251025</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/251025.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #10</span><br><b
+                        style="font-size: 20px;">Marco Cervantes</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">1/3/0 (3)<br><u>Initial below:</u></span>Marco Cervantes<br><span
+                    style="font-size: 18px">4843620  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="pagebreak">&nbsp;</div>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">3/0/1 (10)<br><u>Initial below:</u></span>Julien Timeskip B<br><span
+                    style="font-size: 18px">1111111168  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 250213</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/250213.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #2</span><br><b
+                        style="font-size: 20px;">Julien Timeskip B</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 250231</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/250231.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 6-26<br>
+                        Round 
+                        5 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 250222</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/250222.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #2</span><br><b
+                        style="font-size: 20px;">Jordan Dumlao</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">3/0/1 (10)<br><u>Initial below:</u></span>Jordan Dumlao<br><span
+                    style="font-size: 18px">4002416  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">3/1/0 (9)<br><u>Initial below:</u></span>Isa (fake) E<br><span
+                    style="font-size: 18px">1111111113  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 250517</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/250517.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #5</span><br><b
+                        style="font-size: 20px;">Isa (fake) E</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 250535</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/250535.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 6-26<br>
+                        Round 
+                        5 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 250526</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/250526.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #5</span><br><b
+                        style="font-size: 20px;">Owen Xia</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">2/2/0 (6)<br><u>Initial below:</u></span>Owen Xia<br><span
+                    style="font-size: 18px">3936092  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">2/2/0 (6)<br><u>Initial below:</u></span>Leo (Fake) G<br><span
+                    style="font-size: 18px">111111141  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 250811</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/250811.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #8</span><br><b
+                        style="font-size: 20px;">Leo (Fake) G</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 250839</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/250839.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 6-26<br>
+                        Round 
+                        5 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 250820</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/250820.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #8</span><br><b
+                        style="font-size: 20px;">Paul Echevarria</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">2/2/0 (6)<br><u>Initial below:</u></span>Paul Echevarria<br><span
+                    style="font-size: 18px">4139075  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">1/3/0 (3)<br><u>Initial below:</u></span>Zachary Goff<br><span
+                    style="font-size: 18px">4766857  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 251114</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/251114.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #11</span><br><b
+                        style="font-size: 20px;">Zachary Goff</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 251132</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/251132.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 6-26<br>
+                        Round 
+                        5 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 251123</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/251123.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #11</span><br><b
+                        style="font-size: 20px;">Leo (Timeskip) I-B</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">1/3/0 (3)<br><u>Initial below:</u></span>Leo (Timeskip) I-B<br><span
+                    style="font-size: 18px">1111118888  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="pagebreak">&nbsp;</div>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">3/1/0 (9)<br><u>Initial below:</u></span>Daniel Lucio<br><span
+                    style="font-size: 18px">1075086  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 250311</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/250311.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #3</span><br><b
+                        style="font-size: 20px;">Daniel Lucio</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 250339</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/250339.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 6-26<br>
+                        Round 
+                        5 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 250320</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/250320.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #3</span><br><b
+                        style="font-size: 20px;">Jake Timeskip K</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">3/1/0 (9)<br><u>Initial below:</u></span>Jake Timeskip K<br><span
+                    style="font-size: 18px">1111111136  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">2/2/0 (6)<br><u>Initial below:</u></span>Bobby Ou<br><span
+                    style="font-size: 18px">4720668  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 250615</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/250615.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #6</span><br><b
+                        style="font-size: 20px;">Bobby Ou</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 250633</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/250633.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 6-26<br>
+                        Round 
+                        5 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 250624</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/250624.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #6</span><br><b
+                        style="font-size: 20px;">Jesse Hardy</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">2/2/0 (6)<br><u>Initial below:</u></span>Jesse Hardy<br><span
+                    style="font-size: 18px">230902  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">2/2/0 (6)<br><u>Initial below:</u></span>Cristiano Timeskip C<br><span
+                    style="font-size: 18px">1111768  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 250919</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/250919.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #9</span><br><b
+                        style="font-size: 20px;">Cristiano Timeskip C</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 250937</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/250937.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 6-26<br>
+                        Round 
+                        5 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 250928</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/250928.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #9</span><br><b
+                        style="font-size: 20px;">Vince Banda</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">2/2/0 (6)<br><u>Initial below:</u></span>Vince Banda<br><span
+                    style="font-size: 18px">4778987  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<table class="match_slip match_slip_format">
+    <tbody>
+    <tr class="noborders">
+        <td class="player-1-win">
+            <div class="barcode1 small rotate-left player-1-win-details">
+                <span style="float: right; text-align: right;">1/3/0 (3)<br><u>Initial below:</u></span>Christy Cusick<br><span
+                    style="font-size: 18px">2968911  - MA <span></span></span></div>
+        </td>
+        <td class="player-1-info">
+            <div class="player1 player-1-info-details">
+                <i style="font-size: 10px;">key: 251212</i>
+                <!-- player1 barcode -->
+                <div class="player-1-barcode"><img src='images/251212.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #12</span><br><b
+                        style="font-size: 20px;">Christy Cusick</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 1</b></div>
+            </div>
+        </td>
+        <td class="tied-info">
+            <div class="barcode3 small tied-info-details">
+                <i>key: 251230</i><br>
+                <!-- tie image -->
+                <div class="tie-barcode"><img src='images/251230.png'></div>
+                <div class="below-barcode-padding">
+                    <b>Tabletop Weekly 6-26<br>
+                        Round 
+                        5 </b>
+                    <div class="tie-instructions">
+                        <i>checkmark who wins each game,<br>
+                            circle <b>WINNER</b> or <b>TIE</b> for the match,<br>
+                            then both players initial their end</i>
+                    </div>
+                    <div>
+                        <span style="font-size: 14px;">_______ ▢ game 1 ▢ _______<br>_______ ▢ game 2 ▢ _______<br>_______ ▢ game 3 ▢ _______</span><br><br><span style="font-size: 16px;"><b>TIE</b></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td class="player-2-info">
+            <div class="player2 player-2-info-details">
+                <i style="font-size: 10px;">key: 251221</i>
+                <!-- player 2 barcode-->
+                <div class="player-2-barcode"><img src='images/251221.png'></div>
+                <div class="below-barcode-padding"><span style="font-size: 20px;" class="heading">Table #12</span><br><b
+                        style="font-size: 20px;">Kevin Macaraeg</b><br><br><b
+                        style="font-size: 16px;">WINNER</b><br><b
+                        style="font-size: 12px;">Player 2</b></div>
+            </div>
+        </td>
+        <td class="player-2-win">
+            <div class="barcode2 small player-2-win-details">
+                <span style="float: right; text-align: right;">0/4/0 (0)<br><u>Initial below:</u></span>Kevin Macaraeg<br><span
+                    style="font-size: 18px">4651320  - MA<span></span></span></div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<hr>
 
 <!-- [[END_REPORT]] -->
 </body>
